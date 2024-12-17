@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --time=72:00:00
+#SBATCH --partition=gpu
+#SBATCH --gpus-per-node=a100:1
+#SBATCH --mem=128000
+#SBATCH --job-name=train
+#SBATCH --cpus-per-task=12
+#SBATCH --array=0-4
+
+# Remove all currently loaded modules from the module environment
+module purge
+
+python train_survival.py $SLURM_ARRAY_TASK_ID 25
